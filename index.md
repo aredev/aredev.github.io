@@ -7,4 +7,4 @@ description:
 
 Empty new webpage. 
 
-[History](pages/local_test.html)
+[History](pages/local-test.html)

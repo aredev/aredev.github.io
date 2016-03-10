@@ -1,0 +1,51 @@
+---
+layout: page
+title: Blogpost Assignment 2A
+description: Spark
+---
+
+
+### What is spark?
+
+Spark is an open source frame for cluster computing. It can be used to perform calculations on large data sets. An easy example is how many lines or characters there are in a book. This is a basic example, it can be used for far more powerful calculations
+
+### How to start it?
+
+In this section I will show how to download a large textfile on which you can perform the aforementioned calculations. Starting Spark is easy and happens pretty fast by running just a few commands:
+
+First you want to start docker with the spark notebook container by running the following command
+
+	docker run -p 9000:9000 -p 4040-4045:4040-4045 \ 
+  andypetrella/spark-notebook:0.6.2-scala-2.11.7-spark-1.6.0-hadoop-2.7.1-with-hive-with-parquet
+
+If you now open your browser and go to [localhost:9000](http://localhost:9000) you can see the list of files. We now want to get the textfile. You could _secury copy_ the file by first making a directory for the textfile to go in:
+
+	mkdir /data
+
+And then 'getting' the file by running this command:
+
+	scp aredev@lilo.science.ru.nl:/vol/practica/BigData/100.txt.utf-8 /data
+
+This will ssh into the lilo server and after you have been authenticated, it will copy the file _100.txt.utf-8_ to the /data directory. Finally the only thing remains is to get the notebook which contains code which will be run on top of the textfile. 
+
+	mkdir -p /opt/docker/notebooks/BigData
+	cd /opt/docker/notebooks/BigData
+	wget http://rubigdata.github.io/course/assignments/big-data-spark-101.snb
+
+Now we can go to [localhost:9000](http://localhost:9000) and if we go the /BigData folder we can see the notebook. If you click on it you will enter the notebook's environment.
+
+### The UI 
+
+What I immediately thought was that it has a strong resemblence with [Sage](http://sagemath.com), which can be used as a tool to perform hard mathematical calculations (alternative for WolframAlpha). It came to notice that running the code in the cells sometimes executed only one command and sometimes two commands. 
+
+It is fun to see the code being executed really fast on such a big file and getting an array of the most common words in just 1.5 seconds. Also, if you would cache the results and then filter and collect for a certain string it will happen faster than filtering and collecting directly. 
+
+### Questions
+
+_Q1_ There are multiple resultfiles because the computation is distributed onto several computers in the cluster. 
+
+_Q2_ The tokenization has changed and therefore there are 284 occurences of "macbeth" instead of 30. This is because every word has been transformed into lowercase words and every word written in full capitals are replaced by the 'empty word'. This will probably reduce the number of words to filter through to find 'macbeth'. So probably by replacing all capitals with lowercase letters and replacing all capital letters with empty words, this has resulted that there are words connected which also spell 'macbeth'. This has probably increased the number of occurrences. 
+
+_Q3_ I am not sure how to change this. But maybe by collecting tuples of words instead of just single words. 
+
+

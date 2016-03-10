@@ -5,6 +5,4 @@ tagline: Persoonlijke pagina voor Big Data
 description: 
 ---
 
-Empty new webpage. 
-
-[History](pages/local-test.html)
+[Blogpost Assignment 2A](pages/2a.html)
